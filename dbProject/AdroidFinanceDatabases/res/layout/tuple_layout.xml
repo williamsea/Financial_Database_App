@@ -39,6 +39,17 @@
             android:text="Company Address"
             android:textColor="#666666"
             android:textSize="14sp" />
+        
+         <TextView
+            android:id="@+id/textView_company_website"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="Company Website"
+            android:textColor="#666666"
+            android:textSize="14sp" />
 
 
     </LinearLayout>

@@ -4,6 +4,7 @@ public class DataModel {
 	String id;
 	String CompanyName;
 	String CompanyAddress;
+	String CompanyWebsite;
 	
 	public String getCompanyName() {
 		return CompanyName;
@@ -22,6 +23,12 @@ public class DataModel {
 	}
 	public void setCompanyAddress(String companyAddress) {
 		CompanyAddress = companyAddress;
+	}
+	public String getCompanyWebsite() {
+		return CompanyWebsite;
+	}
+	public void setCompanyWebsite(String companyWebsite) {
+		CompanyWebsite = companyWebsite;
 	}
 
 }

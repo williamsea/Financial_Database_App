@@ -15,6 +15,7 @@ public class DataAdapter extends ArrayAdapter{
 	private LayoutInflater inflater;
 	private TextView companyName;
 	private TextView companyAddress;
+	private TextView companyWebsite;
 	private Activity activity;
 	private List<DataModel> dataModels;
 	
@@ -34,7 +35,8 @@ public class DataAdapter extends ArrayAdapter{
     	companyName.setText(dataModels.get(position).getCompanyName());
     	companyAddress = (TextView) view.findViewById(R.id.textView_company_address);
     	companyAddress.setText(dataModels.get(position).getCompanyAddress());
-    	
+    	companyWebsite = (TextView) view.findViewById(R.id.textView_company_website);
+    	companyWebsite.setText(dataModels.get(position).getCompanyWebsite());
     	
 		return view;
 	}
