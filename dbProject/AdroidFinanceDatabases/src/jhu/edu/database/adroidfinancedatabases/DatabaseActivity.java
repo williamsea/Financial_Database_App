@@ -1,4 +1,4 @@
-package com.database.adroidfinancedatabases;
+package jhu.edu.database.adroidfinancedatabases;
 
 import com.example.adroidfinancedatabases.R;
 

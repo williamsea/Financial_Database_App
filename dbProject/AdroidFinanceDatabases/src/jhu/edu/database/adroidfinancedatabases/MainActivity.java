@@ -1,15 +1,18 @@
-package com.database.adroidfinancedatabases;
+package jhu.edu.database.adroidfinancedatabases;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.adroidfinancedatabases.R;
-
 import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import com.example.adroidfinancedatabases.R;
 
 
 public class MainActivity extends ListActivity {
@@ -29,13 +32,22 @@ public class MainActivity extends ListActivity {
     	List<DataModel> databaseTuples = new ArrayList<DataModel>();
     	for (int i=0;i<20;i++){
     		DataModel databaseTuple = new DataModel();
-    		databaseTuple.setPosterName("Poster"+i);
+    		databaseTuple.setCompanyName("Company Name "+i);
+    		databaseTuple.setCompanyAddress("Company Address "+i);
     		databaseTuples.add(databaseTuple);
     	}
     	return databaseTuples;
     }
+    
+    
 
     @Override
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+    	Intent intent  = new  Intent(this, DatabaseActivity.class);
+    	startActivity(intent);
+	}
+
+	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);

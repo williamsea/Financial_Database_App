@@ -1,4 +1,4 @@
-package com.database.adroidfinancedatabases;
+package jhu.edu.database.adroidfinancedatabases;
 
 import java.util.List;
 
@@ -13,10 +13,8 @@ import android.widget.TextView;
 
 public class DataAdapter extends ArrayAdapter{
 	private LayoutInflater inflater;
-	private TextView postername;
-	private TextView starttime;
-	private TextView endtime;
-	private TextView resturant;
+	private TextView companyName;
+	private TextView companyAddress;
 	private Activity activity;
 	private List<DataModel> dataModels;
 	
@@ -32,8 +30,11 @@ public class DataAdapter extends ArrayAdapter{
 		inflater = activity.getLayoutInflater();
 		view = inflater.inflate(R.layout.tuple_layout, null);
 		
-		postername = (TextView) view.findViewById(R.id.textView_meal_notification_poster);
-    	postername.setText(dataModels.get(position).getPosterName());
+		companyName = (TextView) view.findViewById(R.id.textView_company_name);
+    	companyName.setText(dataModels.get(position).getCompanyName());
+    	companyAddress = (TextView) view.findViewById(R.id.textView_company_address);
+    	companyAddress.setText(dataModels.get(position).getCompanyAddress());
+    	
     	
 		return view;
 	}
