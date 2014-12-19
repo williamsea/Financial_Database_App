@@ -12,7 +12,7 @@ public class DatabaseOperator extends SQLiteOpenHelper {
 	public static final int DATABASE_VERSION = 1;
 	public static final String DATABASE_NAME = "Finance";
 	public static String CREATE_COMPANY = "CREATE TABLE Company ( company_name varchar(30) NOT NULL, address varchar(1000), website varchar(30), brief_overview varchar(30000), PRIMARY KEY (company_name) );";
-	public static String CREATE_HAS_STOCK = "CREATE TABLE Has_Stock ( company_name varchar(30) NOT NULL, stock_name varchar(30) NOT NULL, FOREIGN KEY (company_name) REFERENCES Company(company_name), FOREIGN KEY (stock_name) REFERENCES Stock(stock_name)  );";
+	public static String CREATE_HAS_STOCK = "CREATE TABLE Has_Stock ( company_name varchar(30) NOT NULL, stock_name varchar(30) NOT NULL);";
 	public static String CREATE_STOCK = "CREATE TABLE Stock  ( stock_name varchar(30) NOT NULL, price double precision, stock_date varchar(30), stock_time varchar(30), PRIMARY KEY (stock_name) );";
 	public static String CREATE_BALANCE_SHEET = "CREATE TABLE BalanceSheet  ( company_name varchar(30), balance_sheet_date String, balance_sheet_name varchar(30), balance_sheet_value int, PRIMARY KEY (company_name,balance_sheet_name) );";
 	public static String CREATE_INCOME_STATEMENT = "CREATE TABLE Income_statement ( company_name varchar(30), income_statement_date String, income_statement_name varchar(30), income_statement_value int, PRIMARY KEY (company_name,income_statement_name) );";
@@ -20,7 +20,7 @@ public class DatabaseOperator extends SQLiteOpenHelper {
 	public static String CREATE_INDUSTRY = "CREATE TABLE industry ( industry_name varchar(30), brief_overview varchar(30000), PRIMARY KEY (industry_name) );";
 	public static String CREATE_COMPANY_INDUSTRY = "CREATE TABLE Company_industry ( company_name varchar(30), industry_name varchar(30) );";
 	public static String CREATE_NEWS = "CREATE TABLE News ( title varchar(30), news_date String, abstracts varchar(30000), PRIMARY KEY (title, news_date) );";
-	public static String CREATE_COMPANY_NEWS = "CREATE TABLE Company_news ( company_name varchar(30), title varchar(30), news_date String, positive_effect int, negative_effect int, FOREIGN KEY (company_name) REFERENCES Company(company_name), FOREIGN KEY (title, news_date) REFERENCES News (title, news_date) );";
+	public static String CREATE_COMPANY_NEWS = "CREATE TABLE Company_news ( company_name varchar(30), title varchar(30), news_date String, positive_effect int, negative_effect int);";
 	public static String CREATE_KEYSTAT = "CREATE TABLE Keystats ( company_name varchar(30), stat_term varchar(50), stat_name varchar(30), stat_value int, PRIMARY KEY (company_name, stat_name) );";
 	
 	public static final int COMPANY_COLUMN = 4;
@@ -165,8 +165,45 @@ public class DatabaseOperator extends SQLiteOpenHelper {
 		
 		public Cursor getCompanyInfo(DatabaseOperator dop){
 			SQLiteDatabase sq = dop.getReadableDatabase();
-			Cursor cr = sq.rawQuery("select * from Company",  null);
+			String a = "Company";
+			String[] b = {"Apple_Inc"};
+			Cursor cr = sq.rawQuery("select * from " + a+ " where company_name = ?", b );
 			return cr;
 		}
-
+		
+		public Cursor getDetailedInfoStock(DatabaseOperator dop, String companyName){
+			SQLiteDatabase sq = dop.getReadableDatabase();
+			Cursor cr = sq.rawQuery("select s.* from Stock s inner join Has_Stock h inner join Company c" + " where c.company_name = ?", new String[]{companyName});
+			return cr;
+		}
+		public Cursor getDetailedInfoBalanceSheet(DatabaseOperator dop, String companyName){
+			SQLiteDatabase sq = dop.getReadableDatabase();
+			Cursor cr = sq.rawQuery("select * from BalanceSheet where company_name = ?", new String[]{companyName});
+			return cr;
+		}
+		public Cursor getDetailedInfoIncomeStatement(DatabaseOperator dop, String companyName){
+			SQLiteDatabase sq = dop.getReadableDatabase();
+			Cursor cr = sq.rawQuery("select * from Income_statement where company_name = ?", new String[]{companyName});
+			return cr;
+		}
+		public Cursor getDetailedInfoCompetitor(DatabaseOperator dop, String companyName){
+			SQLiteDatabase sq = dop.getReadableDatabase();
+			Cursor cr = sq.rawQuery("select * from Competitors where company_name1 = ? or company_name2 = ?", new String[]{companyName});
+			return cr;
+		}
+		public Cursor getDetailedInfoIndustry(DatabaseOperator dop, String companyName){
+			SQLiteDatabase sq = dop.getReadableDatabase();
+			Cursor cr = sq.rawQuery("select ci.* from Company_industry ci inner join Company c where c.company_name = ?", new String[]{companyName});
+			return cr;
+		}
+		public Cursor getDetailedInfoNews(DatabaseOperator dop, String companyName){
+			SQLiteDatabase sq = dop.getReadableDatabase();
+			Cursor cr = sq.rawQuery("select n.*, positive_effect, negative_effect from News n inner join Company_news cn inner join Company c where c.company_name = ?", new String[]{companyName});
+			return cr;
+		}
+		public Cursor getDetailedInfoKeyStat(DatabaseOperator dop, String companyName){
+			SQLiteDatabase sq = dop.getReadableDatabase();
+			Cursor cr = sq.rawQuery("select * from Keystats where company_name = ?", new String[]{companyName});
+			return cr;
+		}
 }
