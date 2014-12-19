@@ -1,4 +1,4 @@
-package jhu.edu.database.adroidfinancedatabases;
+package jhu.edu.database.adroidfinancedatabases.datamodels;
 
 public class DataModel {
 	String id;
