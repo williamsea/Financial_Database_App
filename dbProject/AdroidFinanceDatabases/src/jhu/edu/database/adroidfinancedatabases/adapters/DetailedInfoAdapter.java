@@ -14,8 +14,12 @@ import com.example.adroidfinancedatabases.R;
 
 public class DetailedInfoAdapter extends ArrayAdapter{
 	private LayoutInflater inflater;
-	private TextView attributeName;
-	private TextView attributeValue;
+	private TextView companyName;
+	private TextView attribute1;
+	private TextView attribute2;
+	private TextView attribute3;
+	private TextView attribute4;
+	private TextView attribute5;
 	private Activity activity;
 	private List<DetailedInfoModel> detailedInfoModels;
 	
@@ -31,10 +35,18 @@ public class DetailedInfoAdapter extends ArrayAdapter{
 		inflater = activity.getLayoutInflater();
 		view = inflater.inflate(R.layout.detailed_info_layout, null);
 		
-		attributeName = (TextView) view.findViewById(R.id.textView_attribute_name);
-		attributeName.setText(detailedInfoModels.get(position).getAttributeName());
-		attributeValue = (TextView) view.findViewById(R.id.textView_attribute_value);
-		attributeValue.setText(detailedInfoModels.get(position).getAttributeValue());
+		companyName = (TextView) view.findViewById(R.id.textView_company_name);
+		companyName.setText(detailedInfoModels.get(position).getCompanyName());
+		attribute1 = (TextView) view.findViewById(R.id.textView_attribute1);
+		attribute1.setText(detailedInfoModels.get(position).getAttribute1());
+		attribute2 = (TextView) view.findViewById(R.id.textView_attribute2);
+		attribute2.setText(detailedInfoModels.get(position).getAttribute2());
+		attribute3 = (TextView) view.findViewById(R.id.textView_attribute3);
+		attribute3.setText(detailedInfoModels.get(position).getAttribute3());
+		attribute4 = (TextView) view.findViewById(R.id.textView_attribute4);
+		attribute4.setText(detailedInfoModels.get(position).getAttribute4());
+		attribute5 = (TextView) view.findViewById(R.id.textView_attribute5);
+		attribute5.setText(detailedInfoModels.get(position).getAttribute5());
     	
 		return view;
 	}

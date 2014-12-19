@@ -30,6 +30,10 @@
             android:name="jhu.edu.database.adroidfinancedatabases.activities.DetailedInfoActivity"
             android:label="@string/title_activity_detailed_info" >
         </activity>
+        <activity
+            android:name=".QueryResultActivity"
+            android:label="@string/title_activity_query_result" >
+        </activity>
     </application>
 
 </manifest>

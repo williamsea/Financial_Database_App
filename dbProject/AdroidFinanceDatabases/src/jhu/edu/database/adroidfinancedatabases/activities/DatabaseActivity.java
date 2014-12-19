@@ -15,10 +15,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.adroidfinancedatabases.QueryResultActivity;
 import com.example.adroidfinancedatabases.R;
 
 public class DatabaseActivity extends ListActivity {
 
+	List<String> infoNames;
 	private ArrayAdapter<InfoSelectModel> infoSelectAdapter;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +33,15 @@ public class DatabaseActivity extends ListActivity {
 
     private List<InfoSelectModel> getModel(){
     	List<InfoSelectModel> infoSelectTuples = new ArrayList<InfoSelectModel>();
-    		List<String> infoNames = new ArrayList<String>();
+    		infoNames = new ArrayList<String>();
+    		
     		infoNames.add("Stock");
-    		infoNames.add("Price");
-    		infoNames.add("Hello");
+    		infoNames.add("Balance Sheet");
+    		infoNames.add("Income Statement");
+    		infoNames.add("Competitor");
+    		infoNames.add("Industry");
+    		infoNames.add("News");
+    		infoNames.add("Key Statistics");
     		
     		for (int i=0;i<infoNames.size();i++){
     		InfoSelectModel infoSelectTuple = new InfoSelectModel();
@@ -46,10 +53,22 @@ public class DatabaseActivity extends ListActivity {
     
     @Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
+    	Intent intent0 = getIntent();
+    	String companyName = intent0.getStringExtra("companyName");
+    			
     	Intent intent  = new  Intent(this, DetailedInfoActivity.class);
+    	intent.putExtra("infoSelected", infoNames.get(position));
+    	intent.putExtra("companyName", companyName);
     	startActivity(intent);
-
+    	
+    	Toast toast = Toast.makeText(getApplicationContext(), infoNames.get(position), Toast.LENGTH_LONG);
+    	toast.show();
 	}
+    
+    public void onBackButtonClick(View view){
+    	Intent intent = new Intent(this, MainActivity.class);
+    	startActivity(intent);
+    }
     
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
