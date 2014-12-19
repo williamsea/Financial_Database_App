@@ -74,6 +74,10 @@ public class MainActivity extends ListActivity {
 		}
 	}
 
+	/**
+	 * It's the method of putting data into the database
+	 * @param dop
+	 */
 	private void DefineDatabase(DatabaseOperator dop) {
 		dop.putDataCompany(dop, "Apple_Inc", "1 Infinite LoopvCupertino, CA 95014, United States", "http://www.apple.com", "Apple_Inc designs");
 		dop.putDataHasStock(dop, "Apple_Inc", "AAPL");
@@ -128,10 +132,6 @@ public class MainActivity extends ListActivity {
 		dop.putDataCompanyNews(dop, "Google_Inc", "#PreMarket Primer: Friday, December 19: U.S. Debates A Response To Sony Hackers", "2014-12-19", 0, 0);
 		dop.putDataKeyStat(dop, "Google_Inc","intraday", "MarketCap",346710000000L);
 		dop.putDataKeyStat(dop, "Google_Inc", "intraday","PE",2690L);
-
-
-
-
 
 		dop.putDataCompany(dop, "Yahoo!_Inc", "701 First Avenue Sunnyvale, CA 94089 United States ", "http://www.yahoo.com", "blabla");
 		dop.putDataHasStock(dop, "Yahoo!_Inc", "YHOO");
@@ -211,6 +211,12 @@ public class MainActivity extends ListActivity {
 	}
     
     
+    /**
+     * It judges whether the input is a company's name or an industry's name.
+     * @param dop
+     * @param in
+     * @return 1 means that it's a company's name, 2 means that it's an industry's name;
+     */
     public int inCompanyOrIndustry(DatabaseOperator dop, String in){
         int out;
         SQLiteDatabase sq = dop.getReadableDatabase();
@@ -240,6 +246,11 @@ public class MainActivity extends ListActivity {
         }
         return out;
     }
+    /**
+     * It recognized the input and find which aggregate function the input belongs to;
+     * @param in
+     * @return 1 corresponds to max, 2 corresponds to min, 3 corresponds to average, 4 corresponds to count.
+     */
     private int aggregateFunctionTranslater(String in){
     	in=in.toLowerCase();
         boolean t1 = in.contains("max")||in.contains("most")||in.contains("highest");
@@ -263,6 +274,12 @@ public class MainActivity extends ListActivity {
     
 
         
+    /**
+     * It judges whether the input is in a balance sheet or an income statement or a key statistics
+     * @param dop
+     * @param in
+     * @return 1 corresponds to balance sheet, 2 corresponds to income statement, 3 corresponds to key statistics
+     */
     private int inWhatSheet(DatabaseOperator dop, String in){
         int out;
         in = in.toLowerCase();

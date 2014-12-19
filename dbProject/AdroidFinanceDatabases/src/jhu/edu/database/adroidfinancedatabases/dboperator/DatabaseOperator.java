@@ -9,6 +9,14 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+
+
+/**
+ * This class holds all of the operations in the saved android database. Including putting 
+ * data into the database, getting data from the database and other kinds of queries;
+ * @author yuyueqi
+ *
+ */
 public class DatabaseOperator extends SQLiteOpenHelper {
 	public static final int DATABASE_VERSION = 1;
 	public static final String DATABASE_NAME = "Finance";
@@ -63,6 +71,14 @@ public class DatabaseOperator extends SQLiteOpenHelper {
 		context.deleteDatabase(DATABASE_NAME);
 	}
 	
+	/**
+	 * Put data to table Company
+	 * @param dop database Operator
+	 * @param companyName
+	 * @param address
+	 * @param website
+	 * @param briefOverview
+	 */
 	public void putDataCompany(DatabaseOperator dop, String companyName, String address, String website, String briefOverview){
 		SQLiteDatabase sq = dop.getWritableDatabase();
 		ContentValues cv = new ContentValues();
@@ -73,6 +89,12 @@ public class DatabaseOperator extends SQLiteOpenHelper {
 		sq.insert("Company", null, cv);
 	}
 
+	/**
+	 * Put data to Has_stock table
+	 * @param dop
+	 * @param company_name
+	 * @param stock_name
+	 */
 	public void putDataHasStock(DatabaseOperator dop, String company_name, String stock_name){
 		SQLiteDatabase sq = dop.getWritableDatabase();
 		ContentValues cv = new ContentValues();
@@ -81,6 +103,14 @@ public class DatabaseOperator extends SQLiteOpenHelper {
 		sq.insert("Has_Stock", null, cv);		
 	}
 
+	/**
+	 * Put data to Stock table
+	 * @param dop
+	 * @param stock_name
+	 * @param value
+	 * @param stock_date
+	 * @param stock_time
+	 */
 	public void putDataStock(DatabaseOperator dop, String stock_name, double value, String stock_date, String stock_time){
 		SQLiteDatabase sq = dop.getWritableDatabase();
 		ContentValues cv = new ContentValues();
@@ -91,6 +121,14 @@ public class DatabaseOperator extends SQLiteOpenHelper {
 		sq.insert("Stock", null, cv);
 	}
 
+		/**
+		 * Put data to BalanceSheet table
+		 * @param dop
+		 * @param company_name
+		 * @param balance_sheet_date
+		 * @param data_name
+		 * @param value
+		 */
 		public void putDataBalanceSheet(DatabaseOperator dop, String company_name, String balance_sheet_date, String data_name, long value){
 		SQLiteDatabase sq = dop.getWritableDatabase();
 		ContentValues cv = new ContentValues();
@@ -101,6 +139,14 @@ public class DatabaseOperator extends SQLiteOpenHelper {
 		sq.insert("BalanceSheet", null, cv);
 	}
 
+		/**
+		 * Put data to Income_statement table
+		 * @param dop
+		 * @param company_name
+		 * @param income_statement_date
+		 * @param data_name
+		 * @param value
+		 */
 		public void putDataIncomeStatement(DatabaseOperator dop, String company_name, String income_statement_date, String data_name, long value){
 		SQLiteDatabase sq = dop.getWritableDatabase();
 		ContentValues cv = new ContentValues();
@@ -111,6 +157,12 @@ public class DatabaseOperator extends SQLiteOpenHelper {
 		sq.insert("Income_statement", null, cv);
 	}
 
+		/**
+		 * Put data to Competitors table
+		 * @param dop
+		 * @param company_name1
+		 * @param company_name2
+		 */
 		public void putDataCompatitor(DatabaseOperator dop, String company_name1, String company_name2){
 		SQLiteDatabase sq = dop.getWritableDatabase();
 		ContentValues cv = new ContentValues();
@@ -119,6 +171,12 @@ public class DatabaseOperator extends SQLiteOpenHelper {
 		sq.insert("Competitors", null, cv);
 	}
 
+		/**
+		 * Put data to industry table
+		 * @param dop
+		 * @param industry_name
+		 * @param brief_overview
+		 */
 		public void putDataIndustry(DatabaseOperator dop, String industry_name, String brief_overview){
 		SQLiteDatabase sq = dop.getWritableDatabase();
 		ContentValues cv = new ContentValues();
@@ -127,6 +185,12 @@ public class DatabaseOperator extends SQLiteOpenHelper {
 		sq.insert("industry", null, cv);
 	}
 
+		/**
+		 * Put data to Company_industry table
+		 * @param dop
+		 * @param company_name
+		 * @param industry_name
+		 */
 		public void putDataCompanyIndustry(DatabaseOperator dop, String company_name, String industry_name){
 		SQLiteDatabase sq = dop.getWritableDatabase();
 		ContentValues cv = new ContentValues();
@@ -135,6 +199,13 @@ public class DatabaseOperator extends SQLiteOpenHelper {
 		sq.insert("Company_industry", null, cv);
 	}
 
+		/**
+		 * Put data to news table
+		 * @param dop
+		 * @param title
+		 * @param news_date
+		 * @param abstracts
+		 */
 		public void putDataNews(DatabaseOperator dop, String title, String news_date, String abstracts){
 		SQLiteDatabase sq = dop.getWritableDatabase();
 		ContentValues cv = new ContentValues();
@@ -144,6 +215,15 @@ public class DatabaseOperator extends SQLiteOpenHelper {
 		sq.insert("News", null, cv);
 	}
 
+		/**
+		 * Put data to Company_news table
+		 * @param dop
+		 * @param company_name
+		 * @param title
+		 * @param news_date
+		 * @param positive_effect
+		 * @param negative_effect
+		 */
 		public void putDataCompanyNews(DatabaseOperator dop, String company_name, String title, String news_date, int positive_effect, int negative_effect){
 		SQLiteDatabase sq = dop.getWritableDatabase();
 		ContentValues cv = new ContentValues();
@@ -155,6 +235,14 @@ public class DatabaseOperator extends SQLiteOpenHelper {
 		sq.insert("Company_news", null, cv);
 	}
 
+		/**
+		 * Put data to Keystats table
+		 * @param dop
+		 * @param company_name
+		 * @param stat_term
+		 * @param data_name
+		 * @param value
+		 */
 		public void putDataKeyStat(DatabaseOperator dop, String company_name, String stat_term, String data_name, Long value){
 		SQLiteDatabase sq = dop.getWritableDatabase();
 		ContentValues cv = new ContentValues();
@@ -165,6 +253,11 @@ public class DatabaseOperator extends SQLiteOpenHelper {
 		sq.insert("Keystats", null, cv);
 	}
 		
+		/**
+		 * Get company's basic information
+		 * @param dop
+		 * @return
+		 */
 		public Cursor getCompanyInfo(DatabaseOperator dop){
 			SQLiteDatabase sq = dop.getReadableDatabase();
 			String a = "Company";
@@ -173,36 +266,80 @@ public class DatabaseOperator extends SQLiteOpenHelper {
 			return cr;
 		}
 		
+		/**
+		 * get a company's stock information
+		 * @param dop
+		 * @param companyName
+		 * @return
+		 */
 		public Cursor getDetailedInfoStock(DatabaseOperator dop, String companyName){
 			SQLiteDatabase sq = dop.getReadableDatabase();
 			Cursor cr = sq.rawQuery("select s.* from Stock s , Has_Stock h ,Company c" + " where c.company_name = ? and c.company_name = h.company_name and h.stock_name = s.stock_name", new String[]{companyName});
 			return cr;
 		}
+		/**
+		 * get a company's balance sheet information
+		 * @param dop
+		 * @param companyName
+		 * @return
+		 */
 		public Cursor getDetailedInfoBalanceSheet(DatabaseOperator dop, String companyName){
 			SQLiteDatabase sq = dop.getReadableDatabase();
 			Cursor cr = sq.rawQuery("select * from BalanceSheet where company_name = ?", new String[]{companyName});
 			return cr;
 		}
+		
+		/**
+		 * get a company's income statement information
+		 * @param dop
+		 * @param companyName
+		 * @return
+		 */
 		public Cursor getDetailedInfoIncomeStatement(DatabaseOperator dop, String companyName){
 			SQLiteDatabase sq = dop.getReadableDatabase();
 			Cursor cr = sq.rawQuery("select * from Income_statement where company_name = ?", new String[]{companyName});
 			return cr;
 		}
+		
+		/**
+		 * get a company's competitor
+		 * @param dop
+		 * @param companyName
+		 * @return
+		 */
 		public Cursor getDetailedInfoCompetitor(DatabaseOperator dop, String companyName){
 			SQLiteDatabase sq = dop.getReadableDatabase();
 			Cursor cr = sq.rawQuery("select * from Competitors where company_name1 = ?", new String[]{companyName});
 			return cr;
 		}
+		/**
+		 * get the industry name a company is in
+		 * @param dop
+		 * @param companyName
+		 * @return
+		 */
 		public Cursor getDetailedInfoIndustry(DatabaseOperator dop, String companyName){
 			SQLiteDatabase sq = dop.getReadableDatabase();
 			Cursor cr = sq.rawQuery("select ci.* from Company_industry ci , Company c where c.company_name = ? and ci.company_name = c.company_name", new String[]{companyName});
 			return cr;
 		}
+		/**
+		 * get the news relavant to a company
+		 * @param dop
+		 * @param companyName
+		 * @return
+		 */
 		public Cursor getDetailedInfoNews(DatabaseOperator dop, String companyName){
 			SQLiteDatabase sq = dop.getReadableDatabase();
 			Cursor cr = sq.rawQuery("select n.*, positive_effect, negative_effect from News n , Company_news cn , Company c where c.company_name = ? and c.company_name = cn.company_name and n.title = cn.title", new String[]{companyName});
 			return cr;
 		}
+		/**
+		 * get the key statistics of a company
+		 * @param dop
+		 * @param companyName
+		 * @return
+		 */
 		public Cursor getDetailedInfoKeyStat(DatabaseOperator dop, String companyName){
 			SQLiteDatabase sq = dop.getReadableDatabase();
 			Cursor cr = sq.rawQuery("select * from Keystats where company_name = ?", new String[]{companyName});
@@ -210,6 +347,20 @@ public class DatabaseOperator extends SQLiteOpenHelper {
 		}
 		
 		
+		/**
+		 * Return the output of an aggregate function query. It recognize multiple situations
+		 * such as:
+		 * 1. Asking for max/min/avg/count of an attribute (Stock price, total income, etc) of a company.
+		 * 2. Asking for max/min/avg/count of an attribute in an industry;
+		 * 3. Asking for max/min/avg/count of an attribute in all of the companys in the database;
+		 * @param dop
+		 * @param aggregateFunction: the int value indicates the type of aggregate function user what to use;
+		 * @param inWhatUp: can be a company's name, an industry's name or other words 
+		 * @param inWhatLow: can be "Stock" or other attributes that have appeared in the balance sheet, income statement or key statistics tables;
+		 * @param inCompanyOrIndustry: determines whether the input is a company's name or an industry's name; 
+		 * @param inWhatSheet: determines whether the input is a table's name such as Stock or an attribute's name such as total income;
+		 * @return
+		 */
 		public Cursor aggregateInfoGet(DatabaseOperator dop, int aggregateFunction, String inWhatUp, String inWhatLow, int inCompanyOrIndustry, int inWhatSheet){
 			SQLiteDatabase sq = dop.getReadableDatabase();
 			Cursor cr;
