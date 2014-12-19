@@ -1,6 +1,8 @@
-package jhu.edu.database.adroidfinancedatabases;
+package jhu.edu.database.adroidfinancedatabases.adapters;
 
 import java.util.List;
+
+import jhu.edu.database.adroidfinancedatabases.datamodels.DataModel;
 
 import com.example.adroidfinancedatabases.R;
 

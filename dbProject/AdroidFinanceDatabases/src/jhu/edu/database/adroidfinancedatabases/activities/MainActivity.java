@@ -1,8 +1,11 @@
-package jhu.edu.database.adroidfinancedatabases;
+package jhu.edu.database.adroidfinancedatabases.activities;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import jhu.edu.database.adroidfinancedatabases.adapters.DataAdapter;
+import jhu.edu.database.adroidfinancedatabases.datamodels.DataModel;
+import jhu.edu.database.adroidfinancedatabases.dboperator.DatabaseOperator;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -13,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.adroidfinancedatabases.R;
 
@@ -89,6 +93,9 @@ public class MainActivity extends ListActivity {
 	protected void onListItemClick(ListView l, View v, int position, long id) {
     	Intent intent  = new  Intent(this, DatabaseActivity.class);
     	startActivity(intent);
+    	
+    	Toast toast = Toast.makeText(getApplicationContext(), companyName.get(position), Toast.LENGTH_LONG);
+    	toast.show();
 	}
 
 	@Override

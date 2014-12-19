@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="jhu.edu.database.adroidfinancedatabases.MainActivity"
+            android:name="jhu.edu.database.adroidfinancedatabases.activities.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,8 +23,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="jhu.edu.database.adroidfinancedatabases.DatabaseActivity"
+            android:name="jhu.edu.database.adroidfinancedatabases.activities.DatabaseActivity"
             android:label="@string/title_activity_database" >
+        </activity>
+        <activity
+            android:name="jhu.edu.database.adroidfinancedatabases.activities.DetailedInfoActivity"
+            android:label="@string/title_activity_detailed_info" >
         </activity>
     </application>
 
