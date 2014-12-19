@@ -89,7 +89,7 @@
         android:layout_height="wrap_content"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
-        android:hint="Stock/Competitor etc"
+        android:hint="Stock/Total Income, etc"
         android:textAppearance="?android:attr/textAppearanceMedium" />
             
             <Button 

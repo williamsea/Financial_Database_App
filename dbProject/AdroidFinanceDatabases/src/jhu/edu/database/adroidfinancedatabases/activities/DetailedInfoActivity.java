@@ -16,7 +16,6 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.example.adroidfinancedatabases.QueryResultActivity;
 import com.example.adroidfinancedatabases.R;
 
 public class DetailedInfoActivity extends ListActivity {
@@ -282,11 +281,8 @@ public class DetailedInfoActivity extends ListActivity {
 		Cursor c2 = dop.getDetailedInfoCompetitor(dop, companyName);
 		c2.moveToFirst();
 		do {
-			if (c2.getString(0) != companyName) {
-				competitor.add(c2.getString(0));
-			} else {
-				competitor.add(c2.getString(1));
-			}
+			competitor.add(c2.getString(1));
+
 		} while (c2.moveToNext());
 		c2.close();
 
@@ -355,6 +351,7 @@ public class DetailedInfoActivity extends ListActivity {
 	
     public void onBackButtonClick(View view){
     	Intent intent = new Intent(this, DatabaseActivity.class);
+    	intent.putExtra("companyName", companyName);
     	startActivity(intent);
     }
 	

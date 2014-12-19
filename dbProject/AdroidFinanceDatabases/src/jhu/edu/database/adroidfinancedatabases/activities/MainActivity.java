@@ -19,7 +19,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.adroidfinancedatabases.QueryResultActivity;
 import com.example.adroidfinancedatabases.R;
 
 
@@ -31,33 +30,6 @@ public class MainActivity extends ListActivity {
     EditText editTextAggregation;
     EditText editTextChosenCompany;
     EditText editTextChosenInfo;
-////    stock
-//    List<String> stockName;
-//    List<Double> stockPrice;
-//    List<String> stockDate;
-//    List<String> stockTime;
-////    balance sheet
-//    List<String> balanceSheetDate;
-//    List<String> balanceSheetName;
-//    List<Integer> balanceSheetValue;
-////    income statement
-//    List<String> incomeStatementDate;
-//    List<String> incomeStatementName;
-//    List<Integer> incomeStatementValue;
-////    competitor
-//    List<String> competitor;
-////    industry
-//    String industry;
-////    news
-//    List<String> newsTitle;
-//    List<String> newsDate;
-//    List<String> abstracts;
-//    List<Integer> positive_effect;
-//    List<Integer> negative_effect;
-////    key statistics
-//    List<String> statTerm;
-//    List<String> statName;
-//    List<Integer> statValue;
 	
 	private ArrayAdapter<DataModel> dataAdapter;
 
@@ -80,16 +52,7 @@ public class MainActivity extends ListActivity {
 			DatabaseOperator dop = new DatabaseOperator(this);
 			SQLiteDatabase sq = dop.getWritableDatabase();
 //			sq.execSQL(dop.CREATE_BALANCE_SHEET+dop.CREATE_COMPANY+dop.CREATE_COMPANY_INDUSTRY+dop.CREATE_COMPANY_NEWS+dop.CREATE_COMPATITOR+dop.CREATE_HAS_STOCK+dop.CREATE_INCOME_STATEMENT+dop.CREATE_INDUSTRY+dop.CREATE_KEYSTAT+dop.CREATE_NEWS+dop.CREATE_STOCK);
-			dop.putDataCompany(dop, "Apple_Inc", "1 Infinite LoopvCupertino, CA 95014, United States", "http://www.apple.com", "Apple_Inc designs");
-			dop.putDataHasStock(dop, "Apple_Inc", "AAPL");
-			dop.putDataStock(dop, "AAPL", 115, "2014-11-20", "10:09:00");
-			dop.putDataBalanceSheet(dop, "Apple_Inc", "2014-09-27", "Cash and Cash Equivalents", 13844000);
-			dop.putDataIncomeStatement(dop, "Apple_Inc", "2014-09-27", "research development", 6041000);
-			dop.putDataCompatitor(dop, "Apple_Inc", "Google Inc");
-			dop.putDataCompanyIndustry(dop, "Apple_Inc", "Electronic Equipment");
-			dop.putDataNews(dop, "Apple Rising: Piper, Evercore, Morgan Stanley Hike Targets on iPhone, Watch Prospects", "2014-11-20", " ");
-			dop.putDataCompanyNews(dop, "Apple_Inc", "Apple Rising: Piper, Evercore, Morgan Stanley Hike Targets on iPhone, Watch Prospects", "2014-11-20", 0, 0);
-			dop.putDataKeyStat(dop, "Apple_Inc", "intraday", "MarketCap", 653480000000L);
+            DefineDatabase(dop);
 			
 			Cursor getCompanyInfo = dop.getCompanyInfo(dop);
             getCompanyInfo.moveToFirst();
@@ -104,98 +67,96 @@ public class MainActivity extends ListActivity {
             }while(getCompanyInfo.moveToNext());
             getCompanyInfo.close();
 
-//            balanceSheetDate = new ArrayList<String>();
-//            balanceSheetName = new ArrayList<String>();
-//            balanceSheetValue = new ArrayList<Integer>();
-//            Cursor c1 = dop.getDetailedInfoBalanceSheet(dop, "Apple_Inc");
-//            c1.moveToFirst();
-//            do{
-//                balanceSheetDate.add(c1.getString(1));
-//                balanceSheetName.add(c1.getString(2));
-//                balanceSheetValue.add(c1.getInt(3));
-//            }while(c1.moveToNext());
-//            c1.close();
-//
-//            competitor = new ArrayList<String>();
-//            Cursor c2 = dop.getDetailedInfoCompetitor(dop, "Apple_Inc");
-//            c2.moveToFirst();
-//            do{
-//                if(c2.getString(0)!= "Apple_Inc"){
-//                    competitor.add(c2.getString(0));
-//                }else{
-//                    competitor.add(c2.getString(1));
-//                }
-//            }while(c2.moveToNext());
-//            c2.close();
-//
-//            incomeStatementDate = new ArrayList<String>();
-//            incomeStatementName = new ArrayList<String>();
-//            incomeStatementValue = new ArrayList<Integer>();
-//            Cursor c3 = dop.getDetailedInfoIncomeStatement(dop, "Apple_Inc");
-//            c3.moveToFirst();
-//            do{
-//                incomeStatementDate.add(c3.getString(1));
-//                incomeStatementName.add(c3.getString(2));
-//                incomeStatementValue.add(c3.getInt(3));
-//            }while(c3.moveToNext());
-//            c3.close();
-//
-//            industry = "";
-//            Cursor c4 = dop.getDetailedInfoIndustry(dop, "Apple_Inc");
-//            c4.moveToFirst();
-//            do{
-//                industry = (c4.getString(1));
-//            }while(c4.moveToNext());
-//            c4.close();
-//
-//            statTerm = new ArrayList<String>();
-//            statName = new ArrayList<String>();
-//            statValue = new ArrayList<Integer>();
-//            Cursor c5 = dop.getDetailedInfoKeyStat(dop, "Apple_Inc");
-//            c5.moveToFirst();
-//            do{
-//                statTerm.add(c5.getString(1));
-//                statName.add(c5.getString(2));
-//                statValue.add(c5.getInt(3));
-//            }while(c5.moveToNext());
-//            c5.close();
-//
-//            newsTitle = new ArrayList<String>();
-//            newsDate = new ArrayList<String>();
-//            abstracts = new ArrayList<String>();
-//            positive_effect = new ArrayList<Integer>();
-//            negative_effect = new ArrayList<Integer>();
-//            Cursor c6 = dop.getDetailedInfoNews(dop, "Apple_Inc");
-//            c6.moveToFirst();
-//            do{
-//                newsTitle.add(c6.getString(0));
-//                newsDate.add(c6.getString(1));
-//                abstracts.add(c6.getString(2));
-//                positive_effect.add(c6.getInt(3));
-//                negative_effect.add(c6.getInt(4));
-//            }while(c6.moveToNext());
-//            c6.close();
-//            
-//            stockName = new ArrayList<String>();
-//            stockPrice = new ArrayList<Double>();
-//            stockDate = new ArrayList<String>();
-//            stockTime = new ArrayList<String>();
-//            Cursor c7 = dop.getDetailedInfoStock(dop, "Apple_Inc");
-//            c7.moveToFirst();
-//            do{
-//                stockName.add(c7.getString(0));
-//                stockPrice.add(c7.getDouble(1));
-//                stockDate.add(c7.getString(2));
-//                stockTime.add(c7.getString(3));
-//            }while(c7.moveToNext());
-//            c7.close();
-
-			
 			
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.err.println("failed");
 		}
+	}
+
+	private void DefineDatabase(DatabaseOperator dop) {
+		dop.putDataCompany(dop, "Apple_Inc", "1 Infinite LoopvCupertino, CA 95014, United States", "http://www.apple.com", "Apple_Inc designs");
+		dop.putDataHasStock(dop, "Apple_Inc", "AAPL");
+		dop.putDataStock(dop, "AAPL", 112.65, "2014-12-18", "16:00:00");
+		dop.putDataStock(dop, "AAPL", 109.29, "2014-12-17", "16:00:00");
+		dop.putDataStock(dop, "AAPL", 106.69, "2014-12-16", "16:00:00");
+		dop.putDataStock(dop, "AAPL", 108.24, "2014-12-15", "16:00:00");
+		dop.putDataStock(dop, "AAPL", 109.85, "2014-12-12", "16:00:00");
+		dop.putDataStock(dop, "AAPL", 111.62, "2014-12-11", "16:00:00");
+		dop.putDataStock(dop, "AAPL", 111.99, "2014-12-10", "16:00:00");
+		dop.putDataStock(dop, "AAPL", 114.13, "2014-12-09", "16:00:00");
+		dop.putDataStock(dop, "AAPL", 112.40, "2014-12-08", "16:00:00");
+		dop.putDataStock(dop, "AAPL", 114.98, "2014-12-05", "16:00:00");
+		dop.putDataStock(dop, "AAPL", 115.46, "2014-12-04", "16:00:00");
+		dop.putDataStock(dop, "AAPL", 115.95, "2014-12-03", "16:00:00");
+		dop.putDataBalanceSheet(dop, "Apple_Inc", "2014-09-27", "cash and cash equivalents", 13844000);
+		dop.putDataBalanceSheet(dop, "Apple_Inc", "2013-12-31", "total assets", 225184000000L);
+		dop.putDataBalanceSheet(dop, "Apple_Inc", "2013-12-31", "total liability", 95500000000L);
+		dop.putDataIncomeStatement(dop, "Apple_Inc", "2014-09-27", "research development", 6041000);
+		dop.putDataIncomeStatement(dop, "Apple_Inc", "2013-12-31", "total income", 57594000000L);
+		dop.putDataIncomeStatement(dop, "Apple_Inc", "2013-12-31", "net income", 13072000000L);
+		dop.putDataCompatitor(dop, "Apple_Inc", "Google_Inc");
+		dop.putDataCompanyIndustry(dop, "Apple_Inc", "Electronic Equipment");
+		dop.putDataNews(dop, "Apple Rising: Piper, Evercore, Morgan Stanley Hike Targets on iPhone, Watch Prospects", "2014-11-20", "...");
+		dop.putDataCompanyNews(dop, "Apple_Inc", "Apple Rising: Piper, Evercore, Morgan Stanley Hike Targets on iPhone, Watch Prospects", "2014-11-20", 0, 0);
+		dop.putDataKeyStat(dop, "Apple_Inc","intraday" ,"MarketCap",660674000000L);
+		dop.putDataKeyStat(dop, "Apple_Inc", "intraday","PE",1744L);
+
+
+		dop.putDataCompany(dop, "Google_Inc", "1600 Amphitheatre Parkway Mountain View, CA 94043", "http://www.google.com", "blabla");
+		dop.putDataHasStock(dop, "Google_Inc", "GOOG");
+		dop.putDataStock(dop, "GOOG", 511.10, "2014-12-18", "16:00:00");
+		dop.putDataStock(dop, "GOOG", 504.89, "2014-12-17", "16:00:00");
+		dop.putDataStock(dop, "GOOG", 495.39, "2014-12-16", "16:00:00");
+		dop.putDataStock(dop, "GOOG", 513.80, "2014-12-15", "16:00:00");
+		dop.putDataStock(dop, "GOOG", 518.66, "2014-12-12", "16:00:00");
+		dop.putDataStock(dop, "GOOG", 528.34, "2014-12-11", "16:00:00");
+		dop.putDataStock(dop, "GOOG", 526.06, "2014-12-10", "16:00:00");
+		dop.putDataStock(dop, "GOOG", 533.37, "2014-12-09", "16:00:00");
+		dop.putDataStock(dop, "GOOG", 526.98, "2014-12-08", "16:00:00");
+		dop.putDataStock(dop, "GOOG", 525.26, "2014-12-05", "16:00:00");
+		dop.putDataStock(dop, "GOOG", 537.31, "2014-12-04", "16:00:00");
+		dop.putDataStock(dop, "GOOG", 531.32, "2014-12-03", "16:00:00");
+		dop.putDataBalanceSheet(dop, "Google_Inc", "2013-12-31", "total assets", 110920000000L);
+		dop.putDataBalanceSheet(dop, "Google_Inc", "2013-12-31", "total liability", 5245000000L);
+		dop.putDataIncomeStatement(dop, "Google_Inc", "2013-12-31", "total income", 16858000000L);
+		dop.putDataIncomeStatement(dop, "Google_Inc", "2013-12-31", "net income", 3376000000L);
+		dop.putDataCompatitor(dop, "Google_Inc","Apple_Inc");
+		dop.putDataCompatitor(dop, "Google_Inc","Yahoo!_Inc");
+		dop.putDataCompanyIndustry(dop, "Google_Inc", "Internet Information Providers");
+		dop.putDataNews(dop, "#PreMarket Primer: Friday, December 19: U.S. Debates A Response To Sony Hackers", "2014-12-19", "...");
+		dop.putDataCompanyNews(dop, "Google_Inc", "#PreMarket Primer: Friday, December 19: U.S. Debates A Response To Sony Hackers", "2014-12-19", 0, 0);
+		dop.putDataKeyStat(dop, "Google_Inc","intraday", "MarketCap",346710000000L);
+		dop.putDataKeyStat(dop, "Google_Inc", "intraday","PE",2690L);
+
+
+
+
+
+		dop.putDataCompany(dop, "Yahoo!_Inc", "701 First Avenue Sunnyvale, CA 94089 United States ", "http://www.yahoo.com", "blabla");
+		dop.putDataHasStock(dop, "Yahoo!_Inc", "YHOO");
+		dop.putDataStock(dop, "YHOO", 50.91, "2014-12-18", "16:00:00");
+		dop.putDataStock(dop, "YHOO", 50.13, "2014-12-17", "16:00:00");
+		dop.putDataStock(dop, "YHOO", 48.86, "2014-12-16", "16:00:00");
+		dop.putDataStock(dop, "YHOO", 49.82, "2014-12-15", "16:00:00");
+		dop.putDataStock(dop, "YHOO", 50.26, "2014-12-12", "16:00:00");
+		dop.putDataStock(dop, "YHOO", 49.95, "2014-12-11", "16:00:00");
+		dop.putDataStock(dop, "YHOO", 49.20, "2014-12-10", "16:00:00");
+		dop.putDataStock(dop, "YHOO", 50.51, "2014-12-09", "16:00:00");
+		dop.putDataStock(dop, "YHOO", 49.62, "2014-12-08", "16:00:00");
+		dop.putDataStock(dop, "YHOO", 50.99, "2014-12-05", "16:00:00");
+		dop.putDataStock(dop, "YHOO", 50.41, "2014-12-04", "16:00:00");
+		dop.putDataStock(dop, "YHOO", 50.28, "2014-12-03", "16:00:00");
+		dop.putDataBalanceSheet(dop, "Yahoo_Inc", "2013-12-31", "total assets", 16804960000L);
+		dop.putDataBalanceSheet(dop, "Yahoo_Inc", "2013-12-31", "total liability", 3730050000L);
+		dop.putDataIncomeStatement(dop, "Yahoo_Inc", "2013-12-31", "total income", 1265800000L);
+		dop.putDataIncomeStatement(dop, "Yahoo_Inc", "2013-12-31", "net income", 348190000L);
+		dop.putDataCompatitor(dop, "Yahoo!_Inc","Google_Inc");
+		dop.putDataCompanyIndustry(dop, "Yahoo!_Inc", "Internet Information Providers");
+		dop.putDataNews(dop, "Yahoo Finance 2014 Company of the Year: Under Armour", "2014-12-19", "...");
+		dop.putDataCompanyNews(dop, "Yahoo!_Inc", "Yahoo Finance 2014 Company of the Year: Under Armour", "2014-12-19", 0, 0);
+		dop.putDataKeyStat(dop, "Yahoo!_Inc", "intraday","MarketCap",48230000000L);
+		dop.putDataKeyStat(dop, "Yahoo!_Inc", "intraday","PE",680L );
 	}
 
     private List<DataModel> getModel(){
@@ -211,7 +172,30 @@ public class MainActivity extends ListActivity {
     }
     
     public void onSendQueryButtonClick(View view){
+    	String aggregValue;
+    	String chosenCompany;
+    	String chosenInfo;
+    	String out;
+    	try{
+
+    	aggregValue = editTextAggregation.getText().toString();
+    	chosenCompany = editTextChosenCompany.getText().toString();
+    	chosenInfo =  editTextChosenInfo.getText().toString();
+        
+		DatabaseOperator dop = new DatabaseOperator(this);
+        Cursor c8 = dop.aggregateInfoGet(dop, aggregateFunctionTranslater(aggregValue), chosenCompany, chosenInfo, inCompanyOrIndustry(dop, chosenCompany), inWhatSheet(dop, chosenInfo));
+        c8.moveToFirst();
+        out = c8.getString(0);
+        out = out + "";
+        c8.close();
+
+    	}catch(Exception e){
+    		out = "Illegal Query!";
+    		
+    	}
+    	
     	Intent intent = new Intent(this, QueryResultActivity.class);
+    	intent.putExtra("queryResult", out);
     	startActivity(intent);
     }
 
@@ -225,6 +209,105 @@ public class MainActivity extends ListActivity {
     	toast.show();
     	
 	}
+    
+    
+    public int inCompanyOrIndustry(DatabaseOperator dop, String in){
+        int out;
+        SQLiteDatabase sq = dop.getReadableDatabase();
+        List<String> companyNames;
+        List<String> industryNames;
+        Cursor cc = dop.getCompanyInfo(dop);
+        cc.moveToFirst();
+        companyNames = new ArrayList<String>();
+        do{
+            companyNames.add(cc.getString(0));
+        }while(cc.moveToNext());
+        cc.close();
+        Cursor cc1 = sq.rawQuery("select industry_name from Company_industry", null);
+        cc1.moveToFirst();
+        industryNames = new ArrayList<String>();
+        do{
+            industryNames.add(cc1.getString(0));
+        }while(cc1.moveToNext());
+        cc1.close();
+        
+        if(companyNames.contains(in)){
+            out = 1;
+        }else if (industryNames.contains(in)){
+            out = 2;
+        }else{
+            out = 0;
+        }
+        return out;
+    }
+    private int aggregateFunctionTranslater(String in){
+    	in=in.toLowerCase();
+        boolean t1 = in.contains("max")||in.contains("most")||in.contains("highest");
+        boolean t2 = in.contains("min")||in.contains("smallest")||in.contains("lowest");
+        boolean t3 = in.contains("avg")||in.contains("average");
+        boolean t4 = in.contains("count")||in.contains("number")||in.contains("time");
+        int out;
+        if(t1){
+            out = 0;
+        }else if(t2){
+            out = 1;
+        }else if(t3){
+            out = 2;
+        }else if(t4){
+            out = 3;
+        }else{
+            out = 100;
+        }
+        return out;
+    }
+    
+
+        
+    private int inWhatSheet(DatabaseOperator dop, String in){
+        int out;
+        in = in.toLowerCase();
+        SQLiteDatabase sq = dop.getReadableDatabase();
+        List<String> whatsInBS;
+        List<String> whatsInIS;
+        List<String> whatsInKS;
+        
+        whatsInBS = new ArrayList<String>();
+        whatsInIS = new ArrayList<String>();
+        whatsInKS = new ArrayList<String>();
+        
+        Cursor cc = sq.rawQuery("select * from BalanceSheet", null);
+        cc.moveToFirst();
+        do{
+            whatsInBS.add(cc.getString(2));
+        }while(cc.moveToNext());
+        cc.close();
+        
+        Cursor cc1 = sq.rawQuery("select * from Income_statement", null);
+        cc1.moveToFirst();
+        do{
+            whatsInIS.add(cc1.getString(2));
+        }while(cc1.moveToNext());
+        cc1.close();
+        
+        Cursor cc2 = sq.rawQuery("select * from Keystats", null);
+        cc2.moveToFirst();
+        do{
+            whatsInKS.add(cc2.getString(2));
+        }while(cc2.moveToNext());
+        cc2.close();
+        
+        if(whatsInBS.contains(in)){
+            out = 1;
+        }else if(whatsInIS.contains(in)){
+            out = 2;
+        }else if(whatsInKS.contains(in)){
+            out = 3;
+        }else{
+            out = 0;
+        }
+        return out;
+    }
+
 
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -244,4 +327,6 @@ public class MainActivity extends ListActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+    
+    
 }

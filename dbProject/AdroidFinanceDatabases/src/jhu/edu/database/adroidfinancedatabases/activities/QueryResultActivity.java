@@ -1,26 +1,37 @@
-package com.example.adroidfinancedatabases;
+package jhu.edu.database.adroidfinancedatabases.activities;
 
-import jhu.edu.database.adroidfinancedatabases.activities.MainActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
+
+import com.example.adroidfinancedatabases.R;
 
 public class QueryResultActivity extends ActionBarActivity {
+
+	private String queryReult;
+	private TextView textViewResult;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_query_result);
+
+		Intent intent = getIntent();
+		queryReult = intent.getStringExtra("queryResult");
+		
+		textViewResult = (TextView) findViewById(R.id.textView_query_result);
+		textViewResult.setText(queryReult);
 	}
 
-    public void onBackButtonClick(View view){
-    	Intent intent = new Intent(this, MainActivity.class);
-    	startActivity(intent);
-    }
-	
+	public void onBackButtonClick(View view) {
+		Intent intent = new Intent(this, MainActivity.class);
+		startActivity(intent);
+	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

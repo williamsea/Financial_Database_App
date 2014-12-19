@@ -6,7 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.adroidfinancedatabases.QueryResultActivity" >
+    tools:context="jhu.edu.database.adroidfinancedatabases.activities.QueryResultActivity" >
 
     <TextView
         android:id="@+id/textView_query_result_title"

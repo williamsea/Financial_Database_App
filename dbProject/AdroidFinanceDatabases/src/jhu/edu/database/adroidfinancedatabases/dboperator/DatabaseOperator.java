@@ -1,6 +1,7 @@
 package jhu.edu.database.adroidfinancedatabases.dboperator;
 
-import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -13,15 +14,15 @@ public class DatabaseOperator extends SQLiteOpenHelper {
 	public static final String DATABASE_NAME = "Finance";
 	public static String CREATE_COMPANY = "CREATE TABLE Company ( company_name varchar(30) NOT NULL, address varchar(1000), website varchar(30), brief_overview varchar(30000), PRIMARY KEY (company_name) );";
 	public static String CREATE_HAS_STOCK = "CREATE TABLE Has_Stock ( company_name varchar(30) NOT NULL, stock_name varchar(30) NOT NULL);";
-	public static String CREATE_STOCK = "CREATE TABLE Stock  ( stock_name varchar(30) NOT NULL, price double precision, stock_date varchar(30), stock_time varchar(30), PRIMARY KEY (stock_name) );";
-	public static String CREATE_BALANCE_SHEET = "CREATE TABLE BalanceSheet  ( company_name varchar(30), balance_sheet_date String, balance_sheet_name varchar(30), balance_sheet_value int, PRIMARY KEY (company_name,balance_sheet_name) );";
-	public static String CREATE_INCOME_STATEMENT = "CREATE TABLE Income_statement ( company_name varchar(30), income_statement_date String, income_statement_name varchar(30), income_statement_value int, PRIMARY KEY (company_name,income_statement_name) );";
+	public static String CREATE_STOCK = "CREATE TABLE Stock  ( stock_name varchar(30) NOT NULL, value double precision, stock_date varchar(30), stock_time varchar(30), PRIMARY KEY (stock_name,stock_date,stock_time) );";
+	public static String CREATE_BALANCE_SHEET = "CREATE TABLE BalanceSheet  ( company_name varchar(30), balance_sheet_date String, data_name varchar(30), value int, PRIMARY KEY (company_name,data_name) );";
+	public static String CREATE_INCOME_STATEMENT = "CREATE TABLE Income_statement ( company_name varchar(30), income_statement_date String, data_name varchar(30), value int, PRIMARY KEY (company_name,data_name) );";
 	public static String CREATE_COMPATITOR = "CREATE TABLE Competitors ( company_name1 varchar(30), company_name2 varchar(30) );";
 	public static String CREATE_INDUSTRY = "CREATE TABLE industry ( industry_name varchar(30), brief_overview varchar(30000), PRIMARY KEY (industry_name) );";
 	public static String CREATE_COMPANY_INDUSTRY = "CREATE TABLE Company_industry ( company_name varchar(30), industry_name varchar(30) );";
 	public static String CREATE_NEWS = "CREATE TABLE News ( title varchar(30), news_date String, abstracts varchar(30000), PRIMARY KEY (title, news_date) );";
 	public static String CREATE_COMPANY_NEWS = "CREATE TABLE Company_news ( company_name varchar(30), title varchar(30), news_date String, positive_effect int, negative_effect int);";
-	public static String CREATE_KEYSTAT = "CREATE TABLE Keystats ( company_name varchar(30), stat_term varchar(50), stat_name varchar(30), stat_value int, PRIMARY KEY (company_name, stat_name) );";
+	public static String CREATE_KEYSTAT = "CREATE TABLE Keystats ( company_name varchar(30), stat_term varchar(50), data_name varchar(30), value int, PRIMARY KEY (company_name, data_name) );";
 	
 	public static final int COMPANY_COLUMN = 4;
 	public static final int HAS_STOCK_COLUMN = 2;
@@ -33,6 +34,7 @@ public class DatabaseOperator extends SQLiteOpenHelper {
 	public static final int NEWS_COLUMN = 3;
 	public static final int COMPANY_NEWS_COLUMN = 5;
 	public static final int KEYSTATS_COLUMN = 4;
+	
 
 	
 	public DatabaseOperator(Context context) {
@@ -79,33 +81,33 @@ public class DatabaseOperator extends SQLiteOpenHelper {
 		sq.insert("Has_Stock", null, cv);		
 	}
 
-	public void putDataStock(DatabaseOperator dop, String stock_name, double price, String stock_date, String stock_time){
+	public void putDataStock(DatabaseOperator dop, String stock_name, double value, String stock_date, String stock_time){
 		SQLiteDatabase sq = dop.getWritableDatabase();
 		ContentValues cv = new ContentValues();
 		cv.put("stock_name", stock_name);
-		cv.put("price", price);
+		cv.put("value", value);
 		cv.put("stock_date", stock_date);
 		cv.put("stock_time", stock_time);
 		sq.insert("Stock", null, cv);
 	}
 
-		public void putDataBalanceSheet(DatabaseOperator dop, String company_name, String balance_sheet_date, String balance_sheet_name, int balance_sheet_value){
+		public void putDataBalanceSheet(DatabaseOperator dop, String company_name, String balance_sheet_date, String data_name, long value){
 		SQLiteDatabase sq = dop.getWritableDatabase();
 		ContentValues cv = new ContentValues();
 		cv.put("company_name", company_name);
 		cv.put("balance_sheet_date", balance_sheet_date);
-		cv.put("balance_sheet_name", balance_sheet_name);
-		cv.put("balance_sheet_value", balance_sheet_value);
+		cv.put("data_name", data_name);
+		cv.put("value", value);
 		sq.insert("BalanceSheet", null, cv);
 	}
 
-		public void putDataIncomeStatement(DatabaseOperator dop, String company_name, String income_statement_date, String income_statement_name, int income_statement_value){
+		public void putDataIncomeStatement(DatabaseOperator dop, String company_name, String income_statement_date, String data_name, long value){
 		SQLiteDatabase sq = dop.getWritableDatabase();
 		ContentValues cv = new ContentValues();
 		cv.put("company_name", company_name);
 		cv.put("income_statement_date", income_statement_date);
-		cv.put("income_statement_name", income_statement_name);
-		cv.put("income_statement_value", income_statement_value);
+		cv.put("data_name", data_name);
+		cv.put("value", value);
 		sq.insert("Income_statement", null, cv);
 	}
 
@@ -153,13 +155,13 @@ public class DatabaseOperator extends SQLiteOpenHelper {
 		sq.insert("Company_news", null, cv);
 	}
 
-		public void putDataKeyStat(DatabaseOperator dop, String company_name, String stat_term, String stat_name, Long stat_value){
+		public void putDataKeyStat(DatabaseOperator dop, String company_name, String stat_term, String data_name, Long value){
 		SQLiteDatabase sq = dop.getWritableDatabase();
 		ContentValues cv = new ContentValues();
 		cv.put("company_name", company_name);
 		cv.put("stat_term", stat_term);
-		cv.put("stat_name", stat_name);
-		cv.put("stat_value", stat_value);
+		cv.put("data_name", data_name);
+		cv.put("value", value);
 		sq.insert("Keystats", null, cv);
 	}
 		
@@ -167,13 +169,13 @@ public class DatabaseOperator extends SQLiteOpenHelper {
 			SQLiteDatabase sq = dop.getReadableDatabase();
 			String a = "Company";
 			String[] b = {"Apple_Inc"};
-			Cursor cr = sq.rawQuery("select * from " + a+ " where company_name = ?", b );
+			Cursor cr = sq.rawQuery("select * from Company", null);
 			return cr;
 		}
 		
 		public Cursor getDetailedInfoStock(DatabaseOperator dop, String companyName){
 			SQLiteDatabase sq = dop.getReadableDatabase();
-			Cursor cr = sq.rawQuery("select s.* from Stock s inner join Has_Stock h inner join Company c" + " where c.company_name = ?", new String[]{companyName});
+			Cursor cr = sq.rawQuery("select s.* from Stock s , Has_Stock h ,Company c" + " where c.company_name = ? and c.company_name = h.company_name and h.stock_name = s.stock_name", new String[]{companyName});
 			return cr;
 		}
 		public Cursor getDetailedInfoBalanceSheet(DatabaseOperator dop, String companyName){
@@ -188,17 +190,17 @@ public class DatabaseOperator extends SQLiteOpenHelper {
 		}
 		public Cursor getDetailedInfoCompetitor(DatabaseOperator dop, String companyName){
 			SQLiteDatabase sq = dop.getReadableDatabase();
-			Cursor cr = sq.rawQuery("select * from Competitors where company_name1 = ? or company_name2 = ?", new String[]{companyName});
+			Cursor cr = sq.rawQuery("select * from Competitors where company_name1 = ?", new String[]{companyName});
 			return cr;
 		}
 		public Cursor getDetailedInfoIndustry(DatabaseOperator dop, String companyName){
 			SQLiteDatabase sq = dop.getReadableDatabase();
-			Cursor cr = sq.rawQuery("select ci.* from Company_industry ci inner join Company c where c.company_name = ?", new String[]{companyName});
+			Cursor cr = sq.rawQuery("select ci.* from Company_industry ci , Company c where c.company_name = ? and ci.company_name = c.company_name", new String[]{companyName});
 			return cr;
 		}
 		public Cursor getDetailedInfoNews(DatabaseOperator dop, String companyName){
 			SQLiteDatabase sq = dop.getReadableDatabase();
-			Cursor cr = sq.rawQuery("select n.*, positive_effect, negative_effect from News n inner join Company_news cn inner join Company c where c.company_name = ?", new String[]{companyName});
+			Cursor cr = sq.rawQuery("select n.*, positive_effect, negative_effect from News n , Company_news cn , Company c where c.company_name = ? and c.company_name = cn.company_name and n.title = cn.title", new String[]{companyName});
 			return cr;
 		}
 		public Cursor getDetailedInfoKeyStat(DatabaseOperator dop, String companyName){
@@ -206,4 +208,70 @@ public class DatabaseOperator extends SQLiteOpenHelper {
 			Cursor cr = sq.rawQuery("select * from Keystats where company_name = ?", new String[]{companyName});
 			return cr;
 		}
+		
+		
+		public Cursor aggregateInfoGet(DatabaseOperator dop, int aggregateFunction, String inWhatUp, String inWhatLow, int inCompanyOrIndustry, int inWhatSheet){
+			SQLiteDatabase sq = dop.getReadableDatabase();
+			Cursor cr;
+			String sqlCommand;
+			String whatToJoin = "";
+			String whatWhere = "";
+			String agFunction;
+			
+			switch (aggregateFunction) {
+			case 0:
+				agFunction = "max(value)";
+
+				break;
+			case 1:
+				agFunction = "min(value)";
+				
+				break;
+			case 2:
+				agFunction = "avg(value)";
+				break;
+			case 3:
+				agFunction = "count(value)";
+				break;
+			default: 
+				agFunction = "";
+				break;
+			}
+			
+			if(inWhatLow.equals("Stock")){
+				whatToJoin = "Has_Stock hs, Stock s";
+				whatWhere = "c.company_name = hs.company_name and s.stock_name = hs.stock_name";
+			}else{
+				if(inWhatSheet==1){
+				whatToJoin = "BalanceSheet b";
+				whatWhere = "b.company_name = c.company_name";
+				}else if(inWhatSheet==2){
+					whatToJoin = "Income_statement i";
+					whatWhere = "i.company_name = c.company_name";
+				}else if(inWhatSheet==3){
+					whatToJoin = "Keystats k";
+					whatWhere = "k.company_name = c.company_name";
+
+				}
+			}
+			
+			if(inCompanyOrIndustry==1){
+			sqlCommand = "select "+agFunction+" from Company c, " +whatToJoin + " where c.company_name = ? and " + whatWhere;
+			cr = sq.rawQuery(sqlCommand, new String[]{inWhatUp});
+
+			}else if (inCompanyOrIndustry==2){
+				sqlCommand = "select " + agFunction + " from Company_industry ci, " + whatToJoin + " where ci.industry_name = ? and "+ whatWhere+ " group by company_name";
+				cr = sq.rawQuery(sqlCommand, new String[]{inWhatUp});
+
+			}else{
+				sqlCommand = "select " + agFunction + " from " + whatToJoin + " group by company_name";
+				cr = sq.rawQuery(sqlCommand, null);
+			}
+			return cr;
+		}
+		
+
+		
+		
+
 }
