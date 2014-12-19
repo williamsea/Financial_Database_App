@@ -23,9 +23,29 @@ import com.example.adroidfinancedatabases.R;
 
 public class MainActivity extends ListActivity {
 
-	List<String> companyName;
-	List<String> companyAddress;
-	List<String> companyWebsite;
+    List<String> companyName;
+    List<String> companyAddress;
+    List<String> companyWebsite;
+    List<String> stockName;
+    List<Double> stockPrice;
+    List<String> stockDate;
+    List<String> stockTime;
+    List<String> balanceSheetDate;
+    List<String> balanceSheetName;
+    List<Integer> balanceSheetValue;
+    List<String> incomeStatementDate;
+    List<String> incomeStatementName;
+    List<Integer> incomeStatementValue;
+    List<String> competitor;
+    String industry;
+    List<String> newsTitle;
+    List<String> newsDate;
+    List<String> abstracts;
+    List<Integer> positive_effect;
+    List<Integer> negative_effect;
+    List<String> statTerm;
+    List<String> statName;
+    List<Integer> statValue;
 	
 	private ArrayAdapter<DataModel> dataAdapter;
 
@@ -56,17 +76,104 @@ public class MainActivity extends ListActivity {
 			dop.putDataKeyStat(dop, "Apple Inc", "intraday", "MarketCap", 653480000000L);
 			
 			Cursor getCompanyInfo = dop.getCompanyInfo(dop);
-			getCompanyInfo.moveToFirst();
-			companyName = new ArrayList<String>();
-			companyAddress = new ArrayList<String>();
-			companyWebsite = new ArrayList<String>();
+            getCompanyInfo.moveToFirst();
+            companyName = new ArrayList<String>();
+            companyAddress = new ArrayList<String>();
+            companyWebsite = new ArrayList<String>();
 
-			do{
-				companyName.add(getCompanyInfo.getString(0));
-				companyAddress.add(getCompanyInfo.getString(1));
-				companyWebsite.add(getCompanyInfo.getString(2));
-			}while(getCompanyInfo.moveToNext());
-			
+            do{
+                companyName.add(getCompanyInfo.getString(0));
+                companyAddress.add(getCompanyInfo.getString(1));
+                companyWebsite.add(getCompanyInfo.getString(2));
+            }while(getCompanyInfo.moveToNext());
+            getCompanyInfo.close();
+
+            balanceSheetDate = new ArrayList<String>();
+            balanceSheetName = new ArrayList<String>();
+            balanceSheetValue = new ArrayList<Integer>();
+            Cursor c1 = dop.getDetailedInfoBalanceSheet(dop, "Apple_Inc");
+            c1.moveToFirst();
+            do{
+                balanceSheetDate.add(c1.getString(1));
+                balanceSheetName.add(c1.getString(2));
+                balanceSheetValue.add(c1.getInt(3));
+            }while(c1.moveToNext());
+            c1.close();
+
+            competitor = new ArrayList<String>();
+            Cursor c2 = dop.getDetailedInfoCompetitor(dop, "Apple_Inc");
+            c2.moveToFirst();
+            do{
+                if(c2.getString(0)!= "Apple_Inc"){
+                    competitor.add(c2.getString(0));
+                }else{
+                    competitor.add(c2.getString(1));
+                }
+            }while(c2.moveToNext());
+            c2.close();
+
+            incomeStatementDate = new ArrayList<String>();
+            incomeStatementName = new ArrayList<String>();
+            incomeStatementValue = new ArrayList<Integer>();
+            Cursor c3 = dop.getDetailedInfoIncomeStatement(dop, "Apple_Inc");
+            c3.moveToFirst();
+            do{
+                incomeStatementDate.add(c3.getString(1));
+                incomeStatementName.add(c3.getString(2));
+                incomeStatementValue.add(c3.getInt(3));
+            }while(c3.moveToNext());
+            c3.close();
+
+            industry = "";
+            Cursor c4 = dop.getDetailedInfoIndustry(dop, "Apple_Inc");
+            c4.moveToFirst();
+            do{
+                industry = (c4.getString(1));
+            }while(c4.moveToNext());
+            c4.close();
+
+            statTerm = new ArrayList<String>();
+            statName = new ArrayList<String>();
+            statValue = new ArrayList<Integer>();
+            Cursor c5 = dop.getDetailedInfoKeyStat(dop, "Apple_Inc");
+            c5.moveToFirst();
+            do{
+                statTerm.add(c5.getString(1));
+                statName.add(c5.getString(2));
+                statValue.add(c5.getInt(3));
+            }while(c5.moveToNext());
+            c5.close();
+
+            newsTitle = new ArrayList<String>();
+            newsDate = new ArrayList<String>();
+            abstracts = new ArrayList<String>();
+            positive_effect = new ArrayList<Integer>();
+            negative_effect = new ArrayList<Integer>();
+            Cursor c6 = dop.getDetailedInfoNews(dop, "Apple_Inc");
+            c6.moveToFirst();
+            do{
+                newsTitle.add(c6.getString(0));
+                newsDate.add(c6.getString(1));
+                abstracts.add(c6.getString(2));
+                positive_effect.add(c6.getInt(3));
+                negative_effect.add(c6.getInt(4));
+            }while(c6.moveToNext());
+            c6.close();
+            
+            stockName = new ArrayList<String>();
+            stockPrice = new ArrayList<Double>();
+            stockDate = new ArrayList<String>();
+            stockTime = new ArrayList<String>();
+            Cursor c7 = dop.getDetailedInfoStock(dop, "Apple_Inc");
+            c7.moveToFirst();
+            do{
+                stockName.add(c7.getString(0));
+                stockPrice.add(c7.getDouble(1));
+                stockDate.add(c7.getString(2));
+                stockTime.add(c7.getString(3));
+            }while(c7.moveToNext());
+            c7.close();
+
 			
 			
 		} catch (Exception e) {
